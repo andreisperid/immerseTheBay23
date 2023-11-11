@@ -12,7 +12,8 @@ public class UIStateHandler : MonoBehaviour
     public GameObject recipe;
     public GameObject done;
 
-    public int currentState;
+    public float splashTime = 3.0f;
+    public float welcomeTime = 5.0f;
 
 
     public enum State
@@ -21,6 +22,7 @@ public class UIStateHandler : MonoBehaviour
     }
 
     public State theState;
+    private State currentState;
 
 
     // Start is called before the first frame update
@@ -29,6 +31,10 @@ public class UIStateHandler : MonoBehaviour
         DisableAllUI();
     }
 
+   public void nextState()
+    {
+        theState += 1;
+    } 
 
    void DisableAllUI()
     {
@@ -43,43 +49,57 @@ public class UIStateHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        theState = (State)currentState;
-
+        if (currentState != theState) DisableAllUI();
 
         switch (theState)
-        {
+            {
             case State.Splash:
                 Debug.Log("Splash");
-                DisableAllUI();
                 splash.SetActive(true);
-                break;
-            case State.Welcome:
-                Debug.Log("Welcome");
-                DisableAllUI();
-                welcome.SetActive(true);
-                break;
-            case State.Select:
-                Debug.Log("Select");
-                DisableAllUI();
-                select.SetActive(true);
-                break;
-            case State.Handle:
-                Debug.Log("Handle");
-                DisableAllUI();
-                handle.SetActive(true);
-                break;
-            case State.Recipe:
-                Debug.Log("Recipe");
-                DisableAllUI();
-                recipe.SetActive(true);
-                break;
-            case State.Done:
-                Debug.Log("Done");
-                DisableAllUI();
-                done.SetActive(true);
+                splashTime -= Time.deltaTime;
+                if (splashTime <= 0)
+                {
+                    currentState = theState;
+                    theState = State.Welcome;
+                }
+
                 break;
 
-        }
+            case State.Welcome:
+                Debug.Log("Welcome");
+                welcome.SetActive(true);
+                welcomeTime -= Time.deltaTime;
+                if (welcomeTime <= 0)
+                {
+                    currentState = theState;
+                    theState = State.Select;
+                }
+                break;
+
+            case State.Select:
+                Debug.Log("Select");
+                select.SetActive(true);
+                currentState = theState;
+                break;
+
+            case State.Handle:
+                Debug.Log("Handle");
+                handle.SetActive(true);
+                currentState = theState;
+                break;
+
+            case State.Recipe:
+                Debug.Log("Recipe");
+                recipe.SetActive(true);
+                currentState = theState;
+                break;
+
+            case State.Done:
+                Debug.Log("Done");
+                done.SetActive(true);
+                currentState = theState;
+                break;
+            }
+        
     }
 }
