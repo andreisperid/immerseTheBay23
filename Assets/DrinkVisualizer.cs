@@ -5,6 +5,7 @@ using UnityEngine;
 public class DrinkLayer
 {
     public Color color;
+    public string ingredientName;
     public float percentage; // Percentage of the total height
 }
 
@@ -31,6 +32,7 @@ public class DrinkVisualizer : MonoBehaviour
     public List<DrinkProfile> drinkProfiles;
     private Renderer _renderer;
     private Material _material;
+    public GameObject canvas;
 
     void Start()
     {
@@ -57,37 +59,6 @@ public class DrinkVisualizer : MonoBehaviour
         return transform.localScale.y;
     }
 
-    // private void SetShaderProperties(DrinkProfile drink, float cylinderHeight)
-    // {
-    //     float currentHeight = 0.0f;
-    //     float previousHeight = 0.0f;
-
-    //     for (int i = 0; i < drink.layers.Count; i++)
-    //     {
-    //         previousHeight = currentHeight;
-    //         currentHeight += (drink.layers[i].percentage / 100.0f) * cylinderHeight;
-
-    //         // Log the height interval for each color
-    //         Debug.Log($"Color[{i}] ({drink.layers[i].color}) starts at height {previousHeight} and ends at height {currentHeight}");
-
-    //         // Adjust shader properties based on layer index
-    //         switch (i)
-    //         {
-    //             case 0:
-    //                 _material.SetColor("_BottomColor", drink.layers[i].color);
-    //                 _material.SetFloat("_BottomHeight", currentHeight); //line between bottom and middle 
-    //                 break;
-    //             case 1:
-    //                 _material.SetColor("_MiddleColor", drink.layers[i].color);
-    //                 _material.SetFloat("_MiddleHeight", currentHeight);
-    //                 break;
-    //             case 2:
-    //                 _material.SetColor("_TopColor", drink.layers[i].color);
-    //                 _material.SetFloat("_TopHeight", currentHeight);
-    //                 break;
-    //         }
-    //     }
-    // }
     private void SetShaderProperties(DrinkProfile drink, float cylinderHeight)
 {
     float currentHeight = -1.0f; // Start from the bottom of the cylinder
@@ -99,7 +70,7 @@ public class DrinkVisualizer : MonoBehaviour
         // Convert the percentage to height and then map it to the range of -1 to 1
         currentHeight += (drink.layers[i].percentage / 100.0f) * 2.0f; // 2.0f is the full range from -1 to 1
 
-        Debug.Log($"Color[{i}] ({drink.layers[i].color}) starts at height {previousHeight} and ends at height {currentHeight}");
+        //Debug.Log($"Color[{i}] ({drink.layers[i].color}) starts at height {previousHeight} and ends at height {currentHeight}");
 
         // Adjust shader properties based on layer index
         switch (i)
@@ -118,6 +89,19 @@ public class DrinkVisualizer : MonoBehaviour
                 break;
         }
     }
+            DrinkTextDisplay drinkTextDisplay = canvas.GetComponent<DrinkTextDisplay>();
+if (drinkTextDisplay != null)
+{
+    drinkTextDisplay.SetTextNextToDrinkLayers(drink);
+    //also set size of the ingredient canvas 
+    drinkTextDisplay.SetIngredientTextSize(cylinderHeight);
+}
+else
+{
+    Debug.LogError("DrinkTextDisplay component not found on the canvas");
+}
+
+
 }
 
 }
