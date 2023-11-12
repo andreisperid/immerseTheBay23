@@ -13,12 +13,6 @@ public class CupGrab : MonoBehaviour
 
     public CupDesigner cupDesigner;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }   
-
     public void AdjustDimensions(float width, float height)
     {
         transform.localScale = new Vector3(width, height, width);
@@ -39,11 +33,6 @@ public class CupGrab : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider other)
-    {
-
-    }
-
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("RightHand") || other.gameObject.CompareTag("LeftHand"))
@@ -62,24 +51,13 @@ public class CupGrab : MonoBehaviour
             cupRenderer.material.SetColor("_Color", Color.white);
 
             if (currentGrip.tag == "RightHand") {
-                //cupRenderer.material.SetColor("_Color", Color.red);
                 transform.parent = rightGrip.transform;
             }
             else
             {
-                //cupRenderer.material.SetColor("_Color", Color.green);
                 transform.parent = leftGrip.transform;
             }
-
             cupDesigner.SetGrab();
-
         }
-        //else
-        //{
-        //    var cupRenderer = gameObject.GetComponent<Renderer>();
-        //    transform.eulerAngles = new Vector3(0, 0, 0);
-        //    cupRenderer.material.SetColor("_Color", Color.gray);
-        //    transform.parent = null;
-        //}
     }
 }

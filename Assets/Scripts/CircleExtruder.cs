@@ -7,8 +7,6 @@ public class CircleExtruder : MonoBehaviour
     public Transform centerPoint;
     public Transform boundPoint;
 
-    public CupGrab cupGrab;
-
     float height = 0;
     float width = 2;
 
@@ -25,8 +23,5 @@ public class CircleExtruder : MonoBehaviour
 
         transform.localScale = newScale;
         transform.localPosition = new Vector3(0, height / 2, 0);
-
-        //cupGrab.AdjustDimensions(width, height);
-
     }
 }

@@ -10,12 +10,10 @@ public class CupDesigner : MonoBehaviour
     public GameObject volumeSelector;
     public Transform extrudedCylinder;
 
-
     public GameObject handleSphere;
     public GameObject cup;
 
     public UIStateHandler uiStateHandler;
-
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +24,6 @@ public class CupDesigner : MonoBehaviour
         cup.SetActive(false);
     }
 
-
     public void SetPlace()
     {
         handleSphere.SetActive(false);
@@ -34,13 +31,11 @@ public class CupDesigner : MonoBehaviour
         physicalCupSelector.SetActive(true);
     }
 
-
     public void SetPhysicalCup()
     {
         physicalCupSelector.SetActive(false);
         volumeSelector.SetActive(true);
     }
-
 
     public void SetVolume()
     {
@@ -48,8 +43,8 @@ public class CupDesigner : MonoBehaviour
         cup.transform.position = new Vector3(transform.position.x, transform.position.y + (extrudedCylinder.localScale.y * 0.025f), transform.position.z);
         cup.transform.localScale = extrudedCylinder.localScale * 0.025f;
         cup.SetActive(true);
+        uiStateHandler.nextState();
     }
-
 
     public void SetGrab()
     {

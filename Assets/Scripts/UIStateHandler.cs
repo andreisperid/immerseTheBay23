@@ -8,10 +8,10 @@ public class UIStateHandler : MonoBehaviour
     public GameObject splash;
     public GameObject welcome;
     public GameObject select;
-    public GameObject handle;
+    public GameObject draw;
     public GameObject recipe;
     public GameObject cylinder;
-    public SoundAndParticleController particle;
+    public GameObject particle;
 
     public float splashTime = 3.0f;
     public float welcomeTime = 5.0f;
@@ -19,7 +19,7 @@ public class UIStateHandler : MonoBehaviour
 
     public enum State
     {
-        Splash, Welcome, Select, Handle, Particle, Done
+        Splash, Welcome, Select, Draw, Recipe, Particle
     }
 
     public State theState;
@@ -42,7 +42,7 @@ public class UIStateHandler : MonoBehaviour
         splash.SetActive(false);
         welcome.SetActive(false);
         select.SetActive(false);
-        handle.SetActive(false);
+        draw.SetActive(false);
         recipe.SetActive(false);
     }
 
@@ -82,24 +82,25 @@ public class UIStateHandler : MonoBehaviour
                 currentState = theState;
                 break;
 
-            case State.Handle:
+            case State.Draw:
                 //Debug.Log("Handle");
-                handle.SetActive(true);
+                draw.SetActive(true);
+                currentState = theState;
+                break;
+
+            case State.Recipe:
+                //Debug.Log("Recipe");
+                recipe.SetActive(true);
+                particle.SetActive(false);
                 currentState = theState;
                 break;
 
             case State.Particle:
                 //Debug.Log("Recipe");
-
-                //cylinder.GetComponent<MeshRenderer>().enabled = false;
-
+                cylinder.GetComponent<MeshRenderer>().enabled = false;
                 recipe.SetActive(false);
-                particle.PlaySoundAndParticles();
-                currentState = theState;
-                break;
-
-            case State.Done:
-                //Debug.Log("Done");
+                particle.SetActive(true);
+                particle.GetComponent<SoundAndParticleController>().PlaySoundAndParticles();
                 currentState = theState;
                 break;
             }
