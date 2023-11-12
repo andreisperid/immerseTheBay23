@@ -10,7 +10,8 @@ public class UIStateHandler : MonoBehaviour
     public GameObject select;
     public GameObject handle;
     public GameObject recipe;
-    public GameObject done;
+    public GameObject cylinder;
+    public SoundAndParticleController particle;
 
     public float splashTime = 3.0f;
     public float welcomeTime = 5.0f;
@@ -18,7 +19,7 @@ public class UIStateHandler : MonoBehaviour
 
     public enum State
     {
-        Splash, Welcome, Select, Handle, Recipe, Done
+        Splash, Welcome, Select, Handle, Particle, Done
     }
 
     public State theState;
@@ -43,7 +44,6 @@ public class UIStateHandler : MonoBehaviour
         select.SetActive(false);
         handle.SetActive(false);
         recipe.SetActive(false);
-        done.SetActive(false);
     }
 
     // Update is called once per frame
@@ -88,16 +88,18 @@ public class UIStateHandler : MonoBehaviour
                 currentState = theState;
                 break;
 
-            case State.Recipe:
+            case State.Particle:
                 //Debug.Log("Recipe");
 
-                recipe.SetActive(true);
+                //cylinder.GetComponent<MeshRenderer>().enabled = false;
+
+                recipe.SetActive(false);
+                particle.PlaySoundAndParticles();
                 currentState = theState;
                 break;
 
             case State.Done:
                 //Debug.Log("Done");
-                done.SetActive(true);
                 currentState = theState;
                 break;
             }

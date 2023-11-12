@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class SoundAndParticleController : MonoBehaviour
 {
-    public ParticleSystem particleSystem; // Assign your particle system in the inspector
+    public ParticleSystem particlesSystem; // Assign your particle system in the inspector
     public AudioSource audioSource;       // Assign your audio source in the inspector
 
     // Call this function to start playing sound and particles
     public void PlaySoundAndParticles()
     {
-        if (particleSystem != null && audioSource != null)
+        if (particlesSystem != null && audioSource != null)
         {
-            particleSystem.gameObject.SetActive(true); // Make sure the particle system is active
-            particleSystem.Play(); // Start the particle system
+            particlesSystem.gameObject.SetActive(true); // Make sure the particle system is active
+            particlesSystem.Play(); // Start the particle system
             audioSource.Play();    // Start playing the sound
 
             // Call DeactivateParticleSystemAfterSound in the length of the audio clip
@@ -23,9 +23,9 @@ public class SoundAndParticleController : MonoBehaviour
     private void DeactivateParticleSystemAfterSound()
     {
         Debug.Log("stop audio and particles");
-        if (particleSystem != null)
+        if (particlesSystem != null)
         {
-            particleSystem.gameObject.SetActive(false); // Deactivate the particle system GameObject
+            particlesSystem.gameObject.SetActive(false); // Deactivate the particle system GameObject
         }
     }
 }
