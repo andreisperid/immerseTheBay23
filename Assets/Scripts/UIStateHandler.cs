@@ -54,7 +54,7 @@ public class UIStateHandler : MonoBehaviour
         switch (theState)
             {
             case State.Splash:
-                Debug.Log("Splash");
+                //Debug.Log("Splash");
                 splash.SetActive(true);
                 splashTime -= Time.deltaTime;
                 if (splashTime <= 0)
@@ -66,7 +66,7 @@ public class UIStateHandler : MonoBehaviour
                 break;
 
             case State.Welcome:
-                Debug.Log("Welcome");
+                //Debug.Log("Welcome");
                 welcome.SetActive(true);
                 welcomeTime -= Time.deltaTime;
                 if (welcomeTime <= 0)
@@ -77,25 +77,25 @@ public class UIStateHandler : MonoBehaviour
                 break;
 
             case State.Select:
-                Debug.Log("Select");
+                //Debug.Log("Select");
                 select.SetActive(true);
                 currentState = theState;
                 break;
 
             case State.Handle:
-                Debug.Log("Handle");
+                //Debug.Log("Handle");
                 handle.SetActive(true);
                 currentState = theState;
                 break;
 
             case State.Recipe:
-                Debug.Log("Recipe");
+                //Debug.Log("Recipe");
                 recipe.SetActive(true);
                 currentState = theState;
                 break;
 
             case State.Done:
-                Debug.Log("Done");
+                //Debug.Log("Done");
                 done.SetActive(true);
                 currentState = theState;
                 break;
