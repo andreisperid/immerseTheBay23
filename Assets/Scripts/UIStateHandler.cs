@@ -90,6 +90,7 @@ public class UIStateHandler : MonoBehaviour
 
             case State.Recipe:
                 //Debug.Log("Recipe");
+
                 recipe.SetActive(true);
                 currentState = theState;
                 break;
