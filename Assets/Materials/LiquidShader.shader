@@ -2,29 +2,26 @@
 
 Shader "Custom/LiquidShader" {
     Properties {
-        _TopColor ("Top Color", Color) = (1,1,1,1)
-        _MiddleColor ("Middle Color", Color) = (0.5,0.3,0,1)
-        _BottomColor ("Bottom Color", Color) = (0,0,0,1)
-        // _TopHeight ("Top Height", Float) = 1.03
-        // _MiddleHeight ("Middle Height", Float) = 1.02
-        // _BottomHeight("Bottom Height", Float) = 1.01
+           _TopColor ("Top Color", Color) = (1, 1, 1, 0.5)
+        _MiddleColor ("Middle Color", Color) = (0.5, 0.3, 0, 0.5)
+        _BottomColor ("Bottom Color", Color) = (0, 0, 0, 0.5)
         _BottomHeight ("Bottom Height", Range(-1,1)) = 0.33
         _MiddleHeight ("Middle Height", Range(-1,1)) = 0.66
         _TopHeight ("Top Height", Range(-1,1)) = 0.99
     }
     SubShader {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         LOD 100
         Cull Back
         ZWrite On
 
         Pass {
+            Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-
             struct appdata {
                 float4 vertex : POSITION;
                 UNITY_VERTEX_INPUT_INSTANCE_ID 
