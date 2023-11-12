@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cupGrab : MonoBehaviour
+public class CupGrab : MonoBehaviour
 {
     int numberOfCollisions = 0;
-
-    List<string> collisionObjects = new List<string>();
 
     public GameObject rightGrip;
     public GameObject leftGrip;
@@ -19,6 +17,14 @@ public class cupGrab : MonoBehaviour
 
     }    
 
+
+    public void AdjustDimensions(float width, float height)
+    {
+        transform.localScale = new Vector3(width, height, width);
+    }
+
+
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("RightHand") || other.gameObject.CompareTag("LeftHand")) { 
@@ -30,7 +36,6 @@ public class cupGrab : MonoBehaviour
             {
                 currentGrip = other.gameObject;
             }
-
             numberOfCollisions++;
         }
     }
@@ -51,30 +56,28 @@ public class cupGrab : MonoBehaviour
 
     private void Update()
     {
-
-        if (numberOfCollisions >= 3)
+        if (numberOfCollisions >= 2)
         {
             Debug.Log("grab");
             var cupRenderer = gameObject.GetComponent<Renderer>();
+            cupRenderer.material.SetColor("_Color", Color.white);
 
             if (currentGrip.tag == "RightHand") {
-                cupRenderer.material.SetColor("_Color", Color.red);
+                //cupRenderer.material.SetColor("_Color", Color.red);
                 transform.parent = rightGrip.transform;
             }
             else
             {
-                cupRenderer.material.SetColor("_Color", Color.green);
+                //cupRenderer.material.SetColor("_Color", Color.green);
                 transform.parent = leftGrip.transform;
-
             }
         }
         else
         {
             var cupRenderer = gameObject.GetComponent<Renderer>();
-            cupRenderer.material.SetColor("_Color", Color.white);
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            cupRenderer.material.SetColor("_Color", Color.gray);
             transform.parent = null;
-
         }
-
     }
 }
