@@ -11,6 +11,7 @@ public class CupDesigner : MonoBehaviour
     public Transform extrudedCylinder;
 
 
+    public GameObject handleSphere;
     public GameObject cup;
 
     public UIStateHandler uiStateHandler;
@@ -29,6 +30,7 @@ public class CupDesigner : MonoBehaviour
 
     public void SetPlace()
     {
+        handleSphere.SetActive(false);
         placeSelector.SetActive(false);
         physicalCupSelector.SetActive(true);
     }
@@ -43,6 +45,8 @@ public class CupDesigner : MonoBehaviour
 
     public void SetVolume()
     {
+
+
         volumeSelector.SetActive(false);
 
         cup.transform.position = new Vector3(transform.position.x, transform.position.y + (extrudedCylinder.localScale.y * 0.025f), transform.position.z);
